@@ -37,7 +37,11 @@
 #include <linux/module.h>
 #include <linux/slab.h>
 #include <linux/dma-mapping.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include "../../../stream_input/amports/amports_priv.h"
 #include <linux/amlogic/media/codec_mm/codec_mm.h>
 #include "../utils/vdec_input.h"

@@ -45,7 +45,11 @@
 #include <linux/poll.h>
 #include <linux/of.h>
 #include <linux/of_fdt.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include <linux/kthread.h>
 #include <linux/sched/rt.h>
 #include <linux/amlogic/media/utils/amports_config.h>

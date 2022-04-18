@@ -44,7 +44,11 @@
 #include <linux/poll.h>
 #include <linux/of.h>
 #include <linux/of_fdt.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include "../../../common/chips/decoder_cpu_ver_info.h"
 #include "../../../frame_provider/decoder/utils/amvdec.h"
 #include "../../../stream_input/amports/amports_priv.h"

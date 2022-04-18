@@ -24,7 +24,11 @@
 #include <linux/kfifo.h>
 #include <linux/workqueue.h>
 #include <linux/dma-mapping.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include <linux/uaccess.h>
 #include <linux/fs.h>
 #include <linux/vmalloc.h>

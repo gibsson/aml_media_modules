@@ -54,12 +54,15 @@
 #include <linux/of_fdt.h>
 #include <linux/libfdt_env.h>
 #include <linux/of_reserved_mem.h>
-#include <linux/dma-contiguous.h>
 #include <linux/cma.h>
 #include <linux/module.h>
 #include <linux/slab.h>
 #include <linux/dma-mapping.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include "../../../stream_input/amports/amports_priv.h"
 
 #include <linux/amlogic/media/utils/amports_config.h>

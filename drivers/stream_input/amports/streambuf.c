@@ -36,7 +36,11 @@
 #include <linux/amlogic/media/utils/amports_config.h>
 #include "../amports/amports_priv.h"
 #include <linux/dma-mapping.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include <linux/amlogic/media/codec_mm/codec_mm.h>
 
 #define STBUF_SIZE   (64*1024)

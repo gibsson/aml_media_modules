@@ -30,7 +30,11 @@
 #include <linux/amlogic/media/vfm/vframe.h>
 #include <linux/amlogic/media/codec_mm/codec_mm.h>
 #include <linux/dma-mapping.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
+#else
+#include <linux/dma-map-ops.h>
+#endif
 #include <asm-generic/checksum.h>
 #include <linux/amlogic/media/codec_mm/configs.h>
 #include <linux/crc32.h>
