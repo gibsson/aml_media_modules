@@ -10,4 +10,4 @@ obj-y	+=	mjpeg/
 obj-y	+=	avs/
 obj-y	+=	avs2/
 obj-y	+=	avs_multi/
-obj-y	+=	vav1/
+#obj-y	+=	vav1/
