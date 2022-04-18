@@ -42,7 +42,9 @@ int ext_put_video_frame(struct vframe_s *vf);
 int ext_register_end_frame_callback(struct amvideocap_req *req);
 int amstream_request_firmware_from_sys(const char *file_name,
 	char *buf, int size);
+#ifdef CONFIG_AMLOGIC_MEDIA_VIDEO
 void set_vsync_pts_inc_mode(int inc);
+#endif
 
 void set_real_audio_info(void *arg);
 void amstream_wakeup_userdata_poll(struct vdec_s *vdec);

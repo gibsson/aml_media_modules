@@ -24,7 +24,9 @@
 void video_keeper_new_frame_notify(void);
 void video_pip_keeper_new_frame_notify(void);
 void video_pip2_keeper_new_frame_notify(void);
+#ifdef CONFIG_AMLOGIC_MEDIA_VIDEO
 void try_free_keep_video(int flags);
+#endif
 void try_free_keep_videopip(int flags);
 void try_free_keep_videopip2(int flags);
 int video_keeper_init(void);

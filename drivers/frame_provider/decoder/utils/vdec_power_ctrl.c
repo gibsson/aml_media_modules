@@ -22,7 +22,6 @@
 //#include <dt-bindings/power/sc2-pd.h>
 //#include <linux/amlogic/pwr_ctrl.h>
 #include <linux/amlogic/power_domain.h>
-#include <dt-bindings/power/sc2-pd.h>
 #include <linux/amlogic/media/codec_mm/codec_mm.h>
 #include "../../../common/media_clock/switch/amports_gate.h"
 #include "../../../common/chips/decoder_cpu_ver_info.h"

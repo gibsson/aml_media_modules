@@ -331,7 +331,9 @@ int decoder_bmmu_box_check_and_wait_size(int size, int flags, int mem_flags)
 		pr_err("CMA force free keep,for size = %d\n", size);
 		/*need free others?
 		 */
+#ifdef CONFIG_AMLOGIC_MEDIA_VIDEO
 		try_free_keep_video(1);
+#endif
 	}
 
 	return codec_mm_enough_for_size(size,
@@ -368,10 +370,14 @@ int decoder_bmmu_box_alloc_idx_wait(
 				idx, size, aligned_2n, mem_flags);
 		if (ret == -ENOMEM) {
 			pr_info("bmmu alloc idx fail, try free keep video.\n");
+#ifdef CONFIG_AMLOGIC_MEDIA_VIDEO
 			try_free_keep_video(1);
+#endif
 		}
 	} else {
+#ifdef CONFIG_AMLOGIC_MEDIA_VIDEO
 		try_free_keep_video(1);
+#endif
 		ret = -ENOMEM;
 	}
 	return ret;

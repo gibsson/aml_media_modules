@@ -113,8 +113,6 @@ int pts_cached_time(u8 type);
 
 u32 get_first_pic_coming(void);
 
-int get_vsync_pts_inc_mode(void);
-
 void tsync_avevent_locked(enum avevent_e event, u32 param);
 
 void tsync_mode_reinit(void);
@@ -170,8 +168,6 @@ int tsync_get_av_threshold_max(void);
 int tsync_set_av_threshold_min(int min);
 
 int tsync_set_av_threshold_max(int max);
-
-void set_pts_realign(void);
 
 int tsync_set_tunnel_mode(int mode);
 
