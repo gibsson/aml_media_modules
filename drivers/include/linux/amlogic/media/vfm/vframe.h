@@ -20,6 +20,7 @@
 #define VFRAME_H
 
 #include <linux/types.h>
+#include <linux/version.h>
 #ifdef CONFIG_AMLOGIC_MEDIA_TVIN
 #include <linux/amlogic/media/frame_provider/tvin/tvin.h>
 #endif
@@ -482,7 +483,11 @@ struct vf_nn_sr_t {
 	u32 nn_status;
 	u32 nn_index;
 	u32 nn_mode;
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(5, 6, 0))
 	struct timeval start_time;
+#else
+	struct timespec64 start_time;
+#endif
 };
 
 struct vf_aipq_t {
