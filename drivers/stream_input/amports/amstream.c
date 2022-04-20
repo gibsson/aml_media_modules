@@ -144,18 +144,24 @@ static loff_t debug_file_pos;
 
 void debug_file_write(const char __user *buf, size_t count)
 {
+#ifdef CONFIG_SET_FS
 	mm_segment_t old_fs;
+#endif
 
 	if (!debug_filp)
 		return;
 
+#ifdef CONFIG_SET_FS
 	old_fs = get_fs();
 	set_fs(KERNEL_DS);
+#endif
 
 	if (count != vfs_write(debug_filp, buf, count, &debug_file_pos))
 		pr_err("Failed to write debug file\n");
 
+#ifdef CONFIG_SET_FS
 	set_fs(old_fs);
+#endif
 }
 #endif
 
@@ -4272,7 +4278,9 @@ ssize_t dump_stream_store(struct class *class,
 	void *stbuf_vaddr;
 	unsigned long offset;
 	struct file *fp;
+#ifdef CONFIG_SET_FS
 	mm_segment_t old_fs;
+#endif
 	loff_t fpos;
 
 	ret = sscanf(buf, "%d", &id);
@@ -4330,19 +4338,25 @@ ssize_t dump_stream_store(struct class *class,
 		}
 		codec_mm_dma_flush(stbuf_vaddr, vmap_size, DMA_FROM_DEVICE);
 
+#ifdef CONFIG_SET_FS
 		old_fs = get_fs();
 		set_fs(KERNEL_DS);
+#endif
 		write_size = vfs_write(fp, stbuf_vaddr, vmap_size, &fpos);
 		if (write_size < vmap_size) {
 			write_size += vfs_write(fp, stbuf_vaddr + write_size, vmap_size - write_size, &fpos);
 			pr_info("fail write retry, total %d, write %d\n", vmap_size, write_size);
 			if (write_size < vmap_size) {
 				pr_info("retry fail, interrupt dump stream, break\n");
+#ifdef CONFIG_SET_FS
 				set_fs(old_fs);
+#endif
 				break;
 			}
 		}
+#ifdef CONFIG_SET_FS
 		set_fs(old_fs);
+#endif
 		vfs_fsync(fp, 0);
 		pr_info("vmap_size 0x%x dump size 0x%x\n", vmap_size, write_size);
 
