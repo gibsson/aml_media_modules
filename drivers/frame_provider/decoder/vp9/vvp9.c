@@ -7409,6 +7409,7 @@ static void vp9_local_uninit(struct VP9Decoder_s *pbi)
 				pbi->lmem_phy_addr);
 		pbi->lmem_addr = NULL;
 	}
+#if 0
 	if ((get_cpu_major_id() >= AM_MESON_CPU_MAJOR_ID_G12A) &&
 		(vdec_secure(hw_to_vdec(pbi)))) {
 		tee_vp9_prob_free((u32)pbi->prob_buffer_phy_addr);
@@ -7416,7 +7417,9 @@ static void vp9_local_uninit(struct VP9Decoder_s *pbi)
 		pbi->count_buffer_phy_addr = 0;
 		pbi->prob_buffer_addr = NULL;
 		pbi->count_buffer_addr = NULL;
-	} else {
+	} else
+#endif
+	{
 		if (pbi->prob_buffer_addr) {
 			if (pbi->prob_buffer_phy_addr)
 				dma_free_coherent(amports_get_dma_device(),
@@ -7594,6 +7597,7 @@ static int vp9_local_init(struct VP9Decoder_s *pbi)
 	}
 	pbi->lmem_ptr = pbi->lmem_addr;
 
+#if 0
 	if ((get_cpu_major_id() >= AM_MESON_CPU_MAJOR_ID_G12A) &&
 		(vdec_secure(hw_to_vdec(pbi)))) {
 		u32 prob_addr, id;
@@ -7606,7 +7610,9 @@ static int vp9_local_init(struct VP9Decoder_s *pbi)
 		}
 		pbi->prob_buffer_addr = NULL;
 		pbi->count_buffer_addr = NULL;
-	} else {
+	} else
+#endif
+	{
 		pbi->prob_buffer_addr = dma_alloc_coherent(amports_get_dma_device(),
 					PROB_BUF_SIZE,
 					&pbi->prob_buffer_phy_addr, GFP_KERNEL);
@@ -9972,11 +9978,14 @@ static irqreturn_t vvp9_isr(int irq, void *data)
 		if (pbi->m_ins_flag)
 				reset_process_time(pbi);
 
+#if 0
 		if ((get_cpu_major_id() >= AM_MESON_CPU_MAJOR_ID_G12A) &&
 			(vdec_secure(hw_to_vdec(pbi)))) {
 			tee_vp9_prob_process(cm->frame_type, cm->last_frame_type,
 				adapt_prob_status, (unsigned int)pbi->prob_buffer_phy_addr);
-		} else {
+		} else
+#endif
+		{
 			int pre_fc = 0;
 			uint8_t *prev_prob_b, *cur_prob_b, *count_b;
 
