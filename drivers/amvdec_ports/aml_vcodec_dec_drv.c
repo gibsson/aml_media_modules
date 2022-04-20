@@ -548,7 +548,7 @@ static int aml_vcodec_probe(struct platform_device *pdev)
 
 	//dev_set_name(&vdev->dev, "%s%d", name_base, vdev->num);
 
-	ret = video_register_device(vfd_dec, VFL_TYPE_GRABBER, 26);
+	ret = video_register_device(vfd_dec, VFL_TYPE_VIDEO, 26);
 	if (ret) {
 		dev_err(&pdev->dev, "Failed to register video device\n");
 		goto err_dec_reg;
