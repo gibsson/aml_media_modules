@@ -7690,7 +7690,9 @@ static int hevc_slice_segment_header_process(struct hevc_state_s *hevc,
 		hevc->sps_num_reorder_pics_0 =
 			rpm_param->p.sps_num_reorder_pics_0;
 		hevc->ip_mode = (!hevc->sps_num_reorder_pics_0 &&
+#ifdef CONFIG_AMLOGIC_MEDIA_ENHANCEMENT_DOLBYVISION
 							!(vdec->slave || vdec->master) &&
+#endif
 							!disable_ip_mode) ? true : false;
 		hevc->m_temporalId = rpm_param->p.m_temporalId;
 		hevc->m_nalUnitType = rpm_param->p.m_nalUnitType;
@@ -7944,10 +7946,12 @@ static int hevc_slice_segment_header_process(struct hevc_state_s *hevc,
 				check_pic_decoded_error_pre(hevc,
 					READ_VREG(HEVC_PARSER_LCU_START)
 					& 0xffffff);
+#ifdef CONFIG_AMLOGIC_MEDIA_ENHANCEMENT_DOLBYVISION
 			if (vdec_stream_based(vdec) && ((READ_VREG(HEVC_PARSER_LCU_START) & 0xffffff) != 0)) {
 				if (hevc->cur_pic)
 					hevc->cur_pic->error_mark = 1;
 			}
+#endif //TODO check if ok
 			/**/ if (use_cma == 0) {
 				if (hevc->pic_list_init_flag == 0) {
 					init_pic_list(hevc);
@@ -8035,7 +8039,9 @@ static int hevc_slice_segment_header_process(struct hevc_state_s *hevc,
 				hevc->cur_pic->output_ready = 1;
 				hevc->cur_pic->stream_offset =
 					READ_VREG(HEVC_SHIFT_BYTE_COUNT);
+#ifdef CONFIG_AMLOGIC_MEDIA_ENHANCEMENT_DOLBYVISION
 				prepare_display_buf(vdec, hevc->cur_pic);
+#endif
 				hevc->wait_buf = 2;
 				return -1;
 			}
@@ -8378,8 +8384,10 @@ static int hevc_slice_segment_header_process(struct hevc_state_s *hevc,
 	if ((hevc->slice_type != 2) && (hevc->i_only & 0x2))
 		return 0xf;
 
+#ifdef CONFIG_AMLOGIC_MEDIA_ENHANCEMENT_DOLBYVISION
 	if (post_picture_early(vdec, hevc->cur_pic->index))
 		return -1;
+#endif
 
 	return 0;
 }
