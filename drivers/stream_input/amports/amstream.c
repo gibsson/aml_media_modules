@@ -42,6 +42,7 @@
 #include <linux/mutex.h>
 #include <linux/poll.h>
 #include <linux/dma-mapping.h>
+#include <linux/version.h>
 #if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 #include <linux/dma-contiguous.h>
 #else
