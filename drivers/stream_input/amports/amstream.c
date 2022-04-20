@@ -85,6 +85,9 @@
 
 //#define G12A_BRINGUP_DEBUG
 
+// remove compat support
+#undef CONFIG_COMPAT
+
 #define CONFIG_AM_VDEC_REAL //DEBUG_TMP
 
 #define DEVICE_NAME "amstream-dev"

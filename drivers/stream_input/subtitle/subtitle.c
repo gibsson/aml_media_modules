@@ -15,6 +15,9 @@
  *
  */
 
+#ifdef CONFIG_COMPAT
+#include <linux/compat.h>
+#endif
 #include <linux/module.h>
 #include <linux/spinlock.h>
 #include <linux/kernel.h>
